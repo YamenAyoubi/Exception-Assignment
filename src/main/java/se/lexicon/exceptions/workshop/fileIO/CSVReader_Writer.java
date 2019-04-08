@@ -19,7 +19,7 @@ public class CSVReader_Writer {
 	 * @return List<String> of male firstnames
 	 * @throws IOException
 	 */
-	public static List<String> getMaleFirstNames() throws IOException {
+	public static List<String> getMaleFirstNames() {
 
 		BufferedReader reader = null;
 		List<String> names = null;
@@ -34,12 +34,10 @@ public class CSVReader_Writer {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			if (reader != null) {
-				try {
-					reader.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+			try {
+				reader.close();
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
 		}
 		return names;
@@ -55,15 +53,14 @@ public class CSVReader_Writer {
 
 		List<String> names = null;
 
-		try {
-			
-	
-		BufferedReader reader = Files.newBufferedReader(Paths.get("firstname_female.txt"));
-		names = reader.lines().flatMap(line -> Stream.of(line.split(","))).collect(Collectors.toList());
-		}catch(IOException e){
-                e.printStackTrace();  
+		try (BufferedReader reader = Files.newBufferedReader(Paths.get("firstname_female.txt"))) 
+		{
+			names = reader.lines().flatMap(line -> Stream.of(line.split(","))).collect(Collectors.toList());
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		return names;}
+		return names;
+	}
 
 
 
@@ -75,7 +72,7 @@ public class CSVReader_Writer {
 	 * @return List <String> of last names
 	 * @throws IOException
 	 */
-	public static List<String> getLastNames() {
+	public static List<String> getLastNames() throws IOException {
 
 		List<String> names = null;
 		BufferedReader reader = null;
@@ -89,10 +86,8 @@ public class CSVReader_Writer {
 			finally {
 		}
 			if (reader != null) {
-				  try {
 	                    reader.close();
-	                } catch (IOException e) {
-	                    e.printStackTrace();}}
+	                } 
 			return names;
 	}
 	             

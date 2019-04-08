@@ -9,12 +9,18 @@ import se.lexicon.exceptions.workshop.fileIO.CSVReader_Writer;
 
 public class Main {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		
 		List <String> maleFirstNames = CSVReader_Writer.getMaleFirstNames();
         List <String> femaleFirstNames = CSVReader_Writer.getFemaleFirstNames();
 
-        List <String> lastNames = CSVReader_Writer.getLastNames();
+        List<String> lastNames=null;
+		try {
+			lastNames = CSVReader_Writer.getLastNames();
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
 
 
         NameService nameService = new NameService(maleFirstNames, femaleFirstNames,lastNames);
